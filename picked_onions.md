@@ -1,7 +1,7 @@
 # TetCTF 2022 picked onions writeup (856 point, 13 solves) (~~Web~~ Cloud✔️)
 
 
-Although it is said that this challenge is about web, however most part are about AWS cloud. I learned a lot about AWS after solving this challenge, as I know nothing about AWS at the beginning
+Although it is said that this challenge is about web, however most of the part is about AWS cloud. I learned a lot about AWS after solving this challenge, as I know nothing about AWS at the beginning
 
 ### Description :
 ```
