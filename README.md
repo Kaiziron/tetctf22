@@ -1,1 +1,1 @@
-# tetctf22
+# TetCTF 2022 writeup
